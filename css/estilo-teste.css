@@ -46,78 +46,61 @@ h1 {
     transform: scale(1.05);
 }
 
-.flex-container-jogo {
-    width: 100vw;
-    height: 100vh;
-    /* border: 1px solid silver; */
+.jogo {
+    height: 100%;
     display: flex;
-    padding: 5px;
+    justify-content: start; 
+    margin: 10px 10px;
 }
 
-.wrap { 
-    /* -webkit-flex-wrap: wrap; */
-    flex-wrap: wrap;
-} 
+.esquerda {
+    width: 70%;
+    margin-right: 10px;
+}
 
-.flex-item {
-    background: #1d1733;
-    padding: 5px;
-    width: 100px;
-    height: 100px;
-    margin: 5px 5px;
-    border-radius: 10px;
-    
-    /* line-height: 100px; */
-    color: white;
-    /* font-weight: bold; */
-    font-size: 2em;
+.direita {
+    width: 30%;
+}
+
+.menu {
+    font-size: 2.5rem;
     text-align: center;
+    padding-top: 10px;
+    background-color: #1d1733;
+    border: 2px solid #000;
+    border-radius: 5px;
 }
 
 .perguntas {
-    width: 70vw;
     height: 35vh;
-    flex-grow: 3;
+    margin-bottom: 10px;
 }
 
 .respostas {
-    order: 1;
-    width: 70vw;
     height: 60vh;
-    flex-grow: 3;
 }
 
-#tempo-gasto {
-    width: 25vw;
+#tempo {
     height: 35vh;
-    flex-grow: 1;
+    margin-bottom: 10px;
 }
 
 #opcoes {
-    order: 2;
-    width: 25vw;
     height: 60vh;
-    flex-grow: 1;
 }
 
-
-.texto{ 
+.texto{
     text-align: start;
     font-size: 1.6rem;
     padding: 10px;
 }
 
-.flex-container-alternativa{
+.alternativa{
     display: flex;
     align-items: baseline;
 }
 
-.flex-container-alternativa:first-child{
-    margin-top: 20px;
-}
-
-
-.flex-container-alternativa:hover {
+.alternativa:hover {
     cursor: pointer;
     transform: scale(1.03);
 }
@@ -133,7 +116,7 @@ h1 {
 
 .letra {
     width: 50px;
-    height: 50%;
+    height: 50px;
     border-radius: 50%;
     background-color: #000;
     text-align: center;
@@ -141,33 +124,5 @@ h1 {
     margin-left: 10px;
 }
 
-.letra:first-child{
-    margin-top: 15px;
-}
-
-.flex-container-opcoes{
-    width: 100%;
-    height: 58vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.botao-sair {
-    font-size: 1.4rem;
-    background-color: #b4fec9;
-    border: 2px solid #000;
-    border-radius: 10px;
-    color: #000000;
-    text-decoration-line: none;
-    text-align: center;
-    padding: 5px 10px;
-}
-
-.botao-sair:hover{
-    cursor: pointer;
-    transform: scale(1.05);
-}
 
 

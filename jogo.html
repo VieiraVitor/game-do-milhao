@@ -9,38 +9,38 @@
 </head>
 
 <body>
-    <div class="jogo">
-        <div class="esquerda">
-            <div class="menu perguntas">Pergunta
-                <div class="texto" id="pergunta">Quanto é 2 + 2 ?</div>
+    <div class="flex-container-jogo wrap">
+        <div class="flex-item perguntas">Pergunta
+            <div class="texto" id="pergunta">Quanto é isso mais aquilo vezes aquilo la, sendo que tal coisa é assim e
+                assada ? hahaha quero ver tutut</div>
+        </div>
+        <div class="flex-item respostas">Respostas
+            <div class="flex-container-alternativa">
+                <p class="letra">A</p>
+                <p class="texto" id="resposta-selecionada">Alternativa 1</p>
             </div>
-            <div class="menu respostas">Respostas
-                <div class="texto alternativa">
-                    <p class="letra">A</p>
-                    <p class="texto" id="resposta-selecionada">Alternativa 1</p>
-                </div>
-                <div class="texto alternativa">
-                    <p class="letra">B</p>
-                    <p class="texto" id="resposta-selecionada">Alternativa 2</p>
-                </div>
-                <div class="texto alternativa">
-                    <p class="letra">C</p>
-                    <p class="texto" id="resposta-selecionada">Alternativa 3</p>
-                </div>
-                <div class="texto alternativa">
-                    <p class="letra">D</p>
-                    <p class="texto" id="resposta-selecionada">Alternativa 4</p>
-                </div>
+            <div class="flex-container-alternativa">
+                <p class="letra">B</p>
+                <p class="texto" id="resposta-selecionada">Alternativa 2</p>
+            </div>
+            <div class="flex-container-alternativa">
+                <p class="letra">C</p>
+                <p class="texto" id="resposta-selecionada">Alternativa 3</p>
+            </div>
+            <div class="flex-container-alternativa">
+                <p class="letra">D</p>
+                <p class="texto" id="resposta-selecionada">Alternativa 4</p>
             </div>
         </div>
-        <div class="direita">
-            <div class="menu" id="tempo">Tempo</div>
-            <div class="menu" id="opcoes">
-                <p class="ganho">Ganhos</p>
-                <p id="valor">0</p>
-                <a href="index.html" class="botao">Sair</a>
+        <div class="flex-item" id="tempo-gasto">Tempo
+            <p class="tempo">0</p>
+        </div>
+        <div class="flex-item" id="opcoes">
+            <div class="flex-container-opcoes">
+                <p class="flex-item-opcoes">Ganho</p>
+                <p class="flex-item-opcoes" id="valor">0</p>
+                <a href="index.html" class="botao-sair flex-item-opcoes">Parar</a>
             </div>
-            
         </div>
     </div>
 
