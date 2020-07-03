@@ -10,6 +10,12 @@
   -moz-transition: opacity 400ms ease-in;
   transition: opacity 400ms ease-in;
   pointer-events: none;
+  width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .modal:target {
@@ -18,20 +24,20 @@
 }
 
 .container-modal{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 40rem;
-    padding: 20px;
-    margin: 15rem 25rem 0rem 25rem;
+    padding: 30px;
     border: 2px solid white;
     border-radius: 10px;
     background-color: #000;
 }
 
-.btn-modal{
-    font-size: 0.5em;
+.btn-modal {
+    font-size: 0.6em;
     border: 2px solid white;
     border-radius: 10px;
-    margin: 50px
+    margin: 20px; 
+}
+
+.flex-item-modal{
+    display: flex;
+    justify-content: center;
 }
