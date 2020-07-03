@@ -92,6 +92,7 @@ h2 {
     width: 70vw;
     height: 60vh;
     flex-grow: 3;
+    display: grid;
 }
 
 #tempo-gasto {
@@ -118,6 +119,7 @@ h2 {
 .flex-container-alternative{
     display: flex;
     align-items: baseline;
+    align-self: center;
 }
 
 .flex-container-alternative:first-child{
