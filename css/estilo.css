@@ -17,6 +17,11 @@ h1 {
     margin-bottom: 50px;
 }
 
+h2 {
+    font-size: 3.4rem;
+    margin-bottom: 50px;
+}
+
 .container {
     width: 100vw;
     height: 100vh;
@@ -171,3 +176,36 @@ h1 {
 }
 
 
+/* Placar */
+
+.flex-container-fim-jogo {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-item-fim-jogo {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+.flex-form{
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    margin: 0px 5px;
+    padding: 5px;
+    font-size: 1.6rem;
+}
+
+.btn-fim-jogo {
+    font-size: 1.6rem;
+}
