@@ -39,10 +39,6 @@ h2 {
     align-items: center;
 }
 
-.homepage{
-    display: flex;
-}
-
 .button {
     text-decoration-line: none;
     font-size: 2.5rem;
@@ -113,6 +109,7 @@ h2 {
 
 
 .text{ 
+    text-decoration: none;
     text-align: start;
     font-size: 1.6rem;
     padding: 10px;

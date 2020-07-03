@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show do Milhão</title>
     <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/style-modal.css">
 </head>
 
 <body>
@@ -16,19 +17,28 @@
         <div class="flex-item-game answers">Respostas
             <div class="flex-container-alternative">
                 <p class="letter">A</p>
-                <p class="text text-alternative" id="answer">Alternativa 1</p>
+                <a href="#openModal" class="text" id="answer">Alternativa 1</a>
             </div>
             <div class="flex-container-alternative">
                 <p class="letter">B</p>
-                <p class="text text-alternative" id="answer">Alternativa 2</p>
+                <a href="#openModal" class="text" id="answer">Alternativa 2</a>
             </div>
             <div class="flex-container-alternative">
                 <p class="letter">C</p>
-                <p class="text text-alternative" id="answer">Alternativa 3</p>
+                <a href="#openModal" class="text" id="answer">Alternativa 3</a>
             </div>
             <div class="flex-container-alternative">
                 <p class="letter">D</p>
-                <p class="text text-alternative" id="answer">Alternativa 4</p>
+                <a href="#openModal" class="text" id="answer">Alternativa 4</a>
+            </div>
+            <div id="openModal" class="modal">
+                <div class="container-modal">
+                    <h3>Tem certeza da resposta ?</h3>
+                    <div class="flex-item-modal">
+                        <a href="game.html" class="button btn-modal">Sim</a>
+                        <a href="game.html" class="button btn-modal">Não</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="flex-item-game" id="tempo-gasto">Tempo
