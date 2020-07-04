@@ -36,7 +36,7 @@
     display: grid;
 }
 
-#tempo-gasto {
+#time {
     width: 25vw;
     height: 35vh;
     flex-grow: 1;

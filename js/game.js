@@ -115,8 +115,13 @@ let questionSelected = {}
 let questionsAvailable = []
 let alternativeSelected
 let price = 0
+let count = 5
+var timer = null
 const question = document.querySelector('#question')
 const alternatives = document.querySelectorAll('.answer')
+
+//variaveis do tempo
+const timeLeft = document.querySelector('.time-left')
 
 //variaveis dos valores ganhos
 
@@ -185,15 +190,17 @@ getNewQuestion = () => {
         drawnQuestions++
         console.log("questao numero: ", drawnQuestions)
         setPrice()
+        stopTime()
+        timeDecrease()
 
         //sortear uma questao pelo índice
         const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
         questionSelected = questionsAvailable[drawnQuestion]
-        question.innerHTML = questionSelected.question
+        question.innerText = questionSelected.question
 
         alternatives.forEach(alternative => {
             const alternativeNumber = alternative.dataset['id']
-            alternative.innerHTML = questionSelected['alternative' + alternativeNumber]
+            alternative.innerText = questionSelected['alternative' + alternativeNumber]
         })
 
         //remove a questao sorteada do array
@@ -223,10 +230,11 @@ verifyAnswer = () => {
     return questionSelected.answer == alternativeSelected.dataset['id'] ? true : false
 }
 
+//altera os valores de ganhos do jogo
 alterValues = () => {
-    valueCorrect.innerHTML = price + ' mil'
-    valueIncorrect.innerHTML = (price / 4) + ' mil'
-    valueStop.innerHTML = (price / 2) + ' mil'
+    valueCorrect.innerText = price + ' mil'
+    valueIncorrect.innerText = (price / 4) + ' mil'
+    valueStop.innerText = (price / 2) + ' mil'
 }
 
 function setPrice() {
@@ -247,6 +255,28 @@ function setPrice() {
 
 verifyPrice = () => {
     return price == 5 || price == 50 || price == 500 ? price = 0 : price
+}
+
+//contador regressivo do tempo
+
+function timeDecrease(){
+    if((count - 1) >= 0 ){
+        count--
+        timeLeft.innerText = count
+    } else {
+        timeExpired()
+    }
+    timer = setTimeout(timeDecrease,1000)
+}
+
+function stopTime(){
+    clearTimeout(timer)
+    count = 5;
+}
+
+function timeExpired() {
+    //tempo expirou e você perdeu
+    window.location.href = "end-game.html"
 }
 
 startGame()
