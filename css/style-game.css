@@ -124,3 +124,7 @@
 .answer-selected {
     background-color: #a93345;
 }
+
+.answer-correct {
+    background-color: gold;
+}

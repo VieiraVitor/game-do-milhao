@@ -114,7 +114,7 @@ let drawnQuestions = 0
 let questionSelected = {}
 let questionsAvailable = []
 let alternativeSelected
-let price = 0
+let price
 let count = 5
 var timer = null
 const question = document.querySelector('#question')
@@ -128,40 +128,46 @@ const timeLeft = document.querySelector('.time-left')
 const valueCorrect = document.querySelector('.correct')
 const valueIncorrect = document.querySelector('.incorrect')
 const valueStop = document.querySelector('.stop')
+// const prize = document.querySelector('#prize')
+// const openModalPrize = document.querySelector('#open-modal-prize')
 
+
+// function openPrize() {
+//     prize.innerText = 1
+//     openModalPrize.style.display = "flex";
+// }
 
 //variaveis dos modais
 var closeModal = document.querySelectorAll(".close")
-var modalAnswers = document.querySelector("#openModalAnswers")
-var openModalAnswer = document.querySelectorAll(".openModalAnswer")
-var confirmAnswer = document.querySelector('#confirmAnswer')
+var modalAnswers = document.querySelector("#open-modal-answer")
+var openModalAnswer = document.querySelectorAll(".open-modal-answer")
+var confirmAnswer = document.querySelector('#confirm-answer')
 
-var modalStop = document.querySelector("#openModalStop")
-var openModalStop = document.querySelector(".openModalStop")
-var confirmStop = document.querySelector("#confirmStop")
+var modalStop = document.querySelector("#open-modal-stop")
+var openModalStop = document.querySelector(".open-modal-stop")
+var confirmStop = document.querySelector("#confirm-stop")
+
+//modal next question ou erro question
+var openModalNextQuestion = document.querySelector("#open-modal-next-question")
+var openModalIncorrectAnswer = document.querySelector("#open-modal-incorrect-answer")
 
 // verifica se confirma a resposta ou não
 openModalAnswer.forEach(e => e.onclick = () => {
     modalAnswers.style.display = "flex";
 })
 
-closeModal.forEach( e => e.onclick = () => {
+closeModal.forEach(e => e.onclick = () => {
     resetAnswer()
 })
 
 confirmAnswer.onclick = () => {
 
-    //falta verificar se a resposta está correta
-    //se estiver, segue
-    // se não, encerra
     if (verifyAnswer()) {
-        getNewQuestion()
-        resetAnswer()
-        alterValues()
-    } else {
-        window.location.href = "end-game.html"
-    }
+        waitNextQuestion()
 
+    } else {
+        incorrectAnswer()
+    }
 }
 
 //verifica o botão 'parar
@@ -171,9 +177,41 @@ openModalStop.onclick = () => {
 
 confirmStop.onclick = () => window.location.href = "end-game.html"
 
+
+//espera modal next question finalizar
+function waitNextQuestion() {
+    openModalNextQuestion.style.display = "flex"
+    closeConfirmAnswerModal()
+    setTimeout(() => {
+        openModalNextQuestion.style.display = "none"
+        resetAnswer()
+        alterPrizeValues()
+        getNewQuestion()
+    }, 3000)
+}
+
+function incorrectAnswer() {
+    openModalIncorrectAnswer.style.display = "flex"
+    closeConfirmAnswerModal()
+    markCorrectAnswer()
+    setTimeout(() => {
+        openModalNextQuestion.style.display = "none"
+        window.location.href = "end-game.html"
+    }, 3000)
+}
+
+function markCorrectAnswer() {
+    alternatives.forEach(alternative => {
+        if (questionSelected.answer == alternative.dataset['id']){
+            alternative.classList.add('answer-correct')
+        }
+    })
+}
+
 //inicia o jogo
 startGame = () => {
-    price = 0
+    // openPrize()
+    price = 1
     drawnQuestions = 0
     questionsAvailable = databaseQuestions
     getNewQuestion()
@@ -186,12 +224,12 @@ getNewQuestion = () => {
     if (drawnQuestions >= maxQuestions) {
         window.location.href = "end-game.html"
 
-    }else {
+    } else {
         drawnQuestions++
         console.log("questao numero: ", drawnQuestions)
         setPrice()
-        stopTime()
-        timeDecrease()
+        // stopTime()
+        // timeDecrease()
 
         //sortear uma questao pelo índice
         const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
@@ -218,35 +256,40 @@ alternatives.forEach(alternative => {
 
 //reseta a alternativa caso o jogador não confirme sua escolha
 resetAnswer = () => {
-    modalAnswers.style.display = "none";
-    modalStop.style.display = "none";
+    closeConfirmAnswerModal()
     alternatives.forEach(alternative => {
         alternative.classList.remove('answer-selected')
     })
 }
 
+closeConfirmAnswerModal = () => {
+    modalAnswers.style.display = "none";
+    modalStop.style.display = "none";
+}
+
 //verifica e a resposta esta correta
-verifyAnswer = () => { 
+verifyAnswer = () => {
     return questionSelected.answer == alternativeSelected.dataset['id'] ? true : false
 }
 
 //altera os valores de ganhos do jogo
-alterValues = () => {
+alterPrizeValues = () => {
     valueCorrect.innerText = price + ' mil'
     valueIncorrect.innerText = (price / 4) + ' mil'
     valueStop.innerText = (price / 2) + ' mil'
 }
 
 function setPrice() {
-    if (drawnQuestions <= 5){
+    if (drawnQuestions <= 5) {
+        console.log(price)
         verifyPrice()
         price++
-    } else if (drawnQuestions > 5 && drawnQuestions <= 10 ){
+    } else if (drawnQuestions > 5 && drawnQuestions <= 10) {
         verifyPrice()
-        price+=10
-    } else if (drawnQuestions > 10 && drawnQuestions <= 15 ){
+        price += 10
+    } else if (drawnQuestions > 10 && drawnQuestions <= 15) {
         verifyPrice()
-        price+=100  
+        price += 100
     } else {
         verifyPrice()
         price = 1
@@ -259,17 +302,17 @@ verifyPrice = () => {
 
 //contador regressivo do tempo
 
-function timeDecrease(){
-    if((count - 1) >= 0 ){
+function timeDecrease() {
+    if ((count - 1) >= 0) {
         count--
         timeLeft.innerText = count
     } else {
         timeExpired()
     }
-    timer = setTimeout(timeDecrease,1000)
+    timer = setTimeout(timeDecrease, 1000)
 }
 
-function stopTime(){
+function stopTime() {
     clearTimeout(timer)
     count = 5;
 }
