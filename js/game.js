@@ -38,26 +38,40 @@ let databaseQuestions = [
 const maxQuestions = 16
 let drawnQuestions = 0
 let questionSelected = {}
-
+let questionsAvailable = []
+let price = 0
 const question = document.querySelector('#question')
 const alternatives = document.querySelectorAll('.answer')
 const btnClicked = document.querySelector('#answer1')
 
+var span = document.querySelector(".close");
+var modal = document.querySelector("#openModal");
+var OpenModal = document.querySelectorAll(".openModal");
 
+OpenModal.forEach(e => e.onclick = () => {
+    modal.style.display = "flex";
+})
 
-selectedChoice = () => {
-    btnClicked.addEventListener('click', () => btnClicked.style.backgroundColor = '#fff')
+span.onclick = () => {
+    modal.style.display = "none";
+    resetColor()
 }
 
-questionsAvailable = []
-questionsAvailable = databaseQuestions
+startGame = () => {
+    price = 0
+    drawnQuestions = 0
+    questionsAvailable = databaseQuestions
+    getNewQuestion()
+}
 
 getNewQuestion = () => {
 
     //verificar se ainda existem perguntas para serem exibidas
-    if(drawnQuestions > maxQuestions){
+    if (drawnQuestions > maxQuestions) {
         //jogador venceu
     }
+
+    drawnQuestions++
 
     //sortear uma questao pelo índice
     const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
@@ -68,25 +82,23 @@ getNewQuestion = () => {
         const alternativeNumber = alternative.dataset['id']
         alternative.innerHTML = questionSelected['alternative' + alternativeNumber]
     })
-    
-    drawnQuestions++
+
+
     //remove a questao sorteada do array
     questionsAvailable.splice(drawnQuestion, 1)
 }
 
-getNewQuestion()
+resetColor = () => {
+    alternatives.forEach(alternative => {
+        alternative.classList.remove('answer-selected')
+    })
+}
 
-alternatives.forEach( alternative => {
+alternatives.forEach(alternative => {
     alternative.addEventListener('click', e => {
-        
-        const alternativeSelected = e.target.dataset['id']
+        const alternativeSelected = e.target
+        alternativeSelected.classList.add('answer-selected')
+    })
+})
 
-        e.target.classList.add('answer-selected')
-        
-        let classToApply = alternativeSelected == questionSelected.answer ? 'answer-corret' : 'answer-incorrect'
-
-        // se confirmar a resposta
-            .target.classList.add(classToApply)
-
-    }
-)})
+startGame()
