@@ -18,26 +18,35 @@
         <div class="flex-item-game answers">Respostas
             <div class="flex-container-alternative">
                 <p class="letter">A</p>
-                <span class="text answer openModal" id="answer1" data-id="1">Alternativa 1</span>
+                <span class="text answer openModalAnswer" id="answer1" data-id="1">Alternativa 1</span>
             </div>
             <div class="flex-container-alternative">
                 <p class="letter">B</p>
-                <span class="text answer openModal" id="answer2" data-id="2">Alternativa 2</span>
+                <span class="text answer openModalAnswer" id="answer2" data-id="2">Alternativa 2</span>
             </div>
             <div class="flex-container-alternative">
                 <p class="letter">C</p>
-                <span class="text answer openModal" id="answer3" data-id="3">Alternativa 3</span>
+                <span class="text answer openModalAnswer" id="answer3" data-id="3">Alternativa 3</span>
             </div>
             <div class="flex-container-alternative">
                 <p class="letter">D</p>
-                <span class="text answer openModal" id="answer4" data-id="4">Alternativa 4</span>
+                <span class="text answer openModalAnswer" id="answer4" data-id="4">Alternativa 4</span>
             </div>
-            <div id="openModal" class="modal">
+            <div id="openModalAnswers" class="modal">
                 <div class="container-modal">
                     <h3>Tem certeza da resposta ?</h3>
                     <div class="flex-item-modal">
-                        <span class="button btn-modal" id="yes">Sim</span>
-                        <span class="button btn-modal close" id="no">Não</span>
+                        <span class="button btn-modal" id="confirmAnswer">Sim</span>
+                        <span class="button btn-modal close">Não</span>
+                    </div>
+                </div>
+            </div>
+            <div id="openModalStop" class="modal">
+                <div class="container-modal">
+                    <h3>Deseja parar ?</h3>
+                    <div class="flex-item-modal">
+                        <span class="button btn-modal" id="confirmStop">Sim</span>
+                        <span class="button btn-modal close">Não</span>
                     </div>
                 </div>
             </div>
@@ -49,7 +58,7 @@
             <div class="flex-container-options">
                 <p class="flex-item-options">Ganho</p>
                 <p class="flex-item-options" id="value">0</p>
-                <a href="index.html" class="button-end flex-item-options">Parar</a>
+                <span class="button-end flex-item-options openModalStop">Parar</a>
             </div>
         </div>
     </div>
