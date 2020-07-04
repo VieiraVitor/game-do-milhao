@@ -35,7 +35,7 @@ let databaseQuestions = [
 
 ]
 
-const maxQuestions = 16
+const maxQuestions = 4
 let drawnQuestions = 0
 let questionSelected = {}
 let questionsAvailable = []
@@ -47,14 +47,19 @@ const btnClicked = document.querySelector('#answer1')
 var span = document.querySelector(".close");
 var modal = document.querySelector("#openModal");
 var OpenModal = document.querySelectorAll(".openModal");
+var confirmAnswer = document.querySelector('#yes');
 
 OpenModal.forEach(e => e.onclick = () => {
     modal.style.display = "flex";
 })
 
 span.onclick = () => {
-    modal.style.display = "none";
-    resetColor()
+    resetAnswer()
+}
+
+confirmAnswer.onclick = () => {
+    getNewQuestion()
+    resetAnswer()
 }
 
 startGame = () => {
@@ -66,29 +71,34 @@ startGame = () => {
 
 getNewQuestion = () => {
 
+    console.log('max', maxQuestions)
     //verificar se ainda existem perguntas para serem exibidas
-    if (drawnQuestions > maxQuestions) {
-        //jogador venceu
+    if (drawnQuestions >= maxQuestions) {
+        console.log('winner')
+        window.location.href = "end-game.html"
+
+    }else {
+        drawnQuestions++
+        console.log(drawnQuestions)
+
+        //sortear uma questao pelo índice
+        const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
+        questionSelected = questionsAvailable[drawnQuestion]
+        question.innerHTML = questionSelected.question
+
+        alternatives.forEach(alternative => {
+            const alternativeNumber = alternative.dataset['id']
+            alternative.innerHTML = questionSelected['alternative' + alternativeNumber]
+        })
+
+
+        //remove a questao sorteada do array
+        questionsAvailable.splice(drawnQuestion, 1)
     }
-
-    drawnQuestions++
-
-    //sortear uma questao pelo índice
-    const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
-    questionSelected = questionsAvailable[drawnQuestion]
-    question.innerHTML = questionSelected.question
-
-    alternatives.forEach(alternative => {
-        const alternativeNumber = alternative.dataset['id']
-        alternative.innerHTML = questionSelected['alternative' + alternativeNumber]
-    })
-
-
-    //remove a questao sorteada do array
-    questionsAvailable.splice(drawnQuestion, 1)
 }
 
-resetColor = () => {
+resetAnswer = () => {
+    modal.style.display = "none";
     alternatives.forEach(alternative => {
         alternative.classList.remove('answer-selected')
     })
