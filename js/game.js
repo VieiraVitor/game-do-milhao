@@ -114,7 +114,7 @@ let drawnQuestions = 0
 let questionSelected = {}
 let questionsAvailable = []
 let alternativeSelected
-let price
+let price = 0
 let count = 5
 var timer = null
 const question = document.querySelector('#question')
@@ -163,7 +163,7 @@ closeModal.forEach(e => e.onclick = () => {
 confirmAnswer.onclick = () => {
 
     if (verifyAnswer()) {
-        waitNextQuestion()
+        correctAnswer()
 
     } else {
         incorrectAnswer()
@@ -179,19 +179,20 @@ confirmStop.onclick = () => window.location.href = "end-game.html"
 
 
 //espera modal next question finalizar
-function waitNextQuestion() {
+function correctAnswer() {
     openModalNextQuestion.style.display = "flex"
     closeConfirmAnswerModal()
     setTimeout(() => {
         openModalNextQuestion.style.display = "none"
         resetAnswer()
-        alterPrizeValues()
         getNewQuestion()
     }, 3000)
 }
 
 function incorrectAnswer() {
     openModalIncorrectAnswer.style.display = "flex"
+    localStorage.setItem("mostRecentPrize", (price / 4))
+    // console.log((price / 4))
     closeConfirmAnswerModal()
     markCorrectAnswer()
     setTimeout(() => {
@@ -202,7 +203,7 @@ function incorrectAnswer() {
 
 function markCorrectAnswer() {
     alternatives.forEach(alternative => {
-        if (questionSelected.answer == alternative.dataset['id']){
+        if (questionSelected.answer == alternative.dataset['id']) {
             alternative.classList.add('answer-correct')
         }
     })
@@ -211,7 +212,7 @@ function markCorrectAnswer() {
 //inicia o jogo
 startGame = () => {
     // openPrize()
-    price = 1
+    price = 0
     drawnQuestions = 0
     questionsAvailable = databaseQuestions
     getNewQuestion()
@@ -222,14 +223,13 @@ getNewQuestion = () => {
 
     //verificar se ainda existem perguntas para serem exibidas
     if (drawnQuestions >= maxQuestions) {
+        console.log("MAXIMO DE PERGUNTAS")
+        localStorage.setItem("mostRecentPrize", price)
         window.location.href = "end-game.html"
-
     } else {
         drawnQuestions++
-        console.log("questao numero: ", drawnQuestions)
+        console.log(price)
         setPrice()
-        // stopTime()
-        // timeDecrease()
 
         //sortear uma questao pelo índice
         const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
@@ -281,19 +281,28 @@ alterPrizeValues = () => {
 
 function setPrice() {
     if (drawnQuestions <= 5) {
-        console.log(price)
-        verifyPrice()
-        price++
+        if (drawnQuestions == 1) {
+            price = 1
+        } else {
+            console.log("1 round", price)
+            verifyPrice()
+            price++
+        }
     } else if (drawnQuestions > 5 && drawnQuestions <= 10) {
+        console.log("2 round", price)
         verifyPrice()
+        console.log("afeter verify", price)
         price += 10
     } else if (drawnQuestions > 10 && drawnQuestions <= 15) {
+        console.log("3 round", price)
         verifyPrice()
         price += 100
     } else {
         verifyPrice()
         price = 1
     }
+
+    alterPrizeValues()
 }
 
 verifyPrice = () => {
