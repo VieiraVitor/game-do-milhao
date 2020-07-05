@@ -1,5 +1,5 @@
 # Jogo Show Do Milhão
-
+![](/imgs/homepage.png)
 # Sobre o Projeto
 A ideia do projeto é:
 <p>Desenvolver um produto em um estilo de jogo de perguntas e respostas, baseado no famoso jogo "Show do Milhão".</p>
@@ -44,3 +44,12 @@ Utilização dos navegadores Google Chrome ou Mozila Firefox para executar o jog
     git clone https://github.com/VieiraVitor/jogo-show-do-milhao
 
 Para visualizar o funcionamento do jogo abra o homepage.html no diretório baixado pelo git.
+
+# Imagens do Jogo
+
+Abaixo algumas imagens de telas do jogo
+
+![](/imgs/gamepage1.png)
+![](/imgs/gamepage-confirm-answer.png)
+![](/imgs/gamepage-lose.png)
+![](/imgs/end-game-page.png)
