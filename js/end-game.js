@@ -29,6 +29,6 @@ savePrize = e => {
         highPrizes.splice(3);
 
         localStorage.setItem("highPrizes", JSON.stringify(highPrizes))
-        window.location.assign('index.html')
+        window.location.assign('homepage.html')
     }
 }

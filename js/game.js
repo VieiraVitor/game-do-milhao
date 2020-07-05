@@ -58,10 +58,9 @@ let databaseQuestions = [
     {
         question: 'Quantas casas decimais tem o número pi?',
         alternative1: 'Duas',
-        alternative1: 'Centenas',
-        alternative1: 'Infinitas',
-        alternative1: 'Vinte',
-        alternative1: 'Milhares',
+        alternative2: 'Centenas',
+        alternative3: 'Infinitas',
+        alternative4: 'Vinte',
         answer: 3
     },
     {
