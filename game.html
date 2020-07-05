@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show do Milhão</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/game.css">
+</head>
+
+<body>
+    <div class="flex-container-game wrap">
+        <div class="flex-item-game questions">
+            <div class="text" id="question"></div>
+        </div>
+        <div class="flex-item-game answers">
+            <div class="flex-container-alternative">
+                <p class="letter open-modal-answer">A</p>
+                <span class="text answer open-modal-answer" id="answer1" data-id="1">Alternativa 1</span>
+            </div>
+            <div class="flex-container-alternative">
+                <p class="letter open-modal-answer">B</p>
+                <span class="text answer open-modal-answer" id="answer2" data-id="2">Alternativa 2</span>
+            </div>
+            <div class="flex-container-alternative">
+                <p class="letter open-modal-answer">C</p>
+                <span class="text answer open-modal-answer" id="answer3" data-id="3">Alternativa 3</span>
+            </div>
+            <div class="flex-container-alternative">
+                <p class="letter open-modal-answer">D</p>
+                <span class="text answer open-modal-answer" id="answer4" data-id="4">Alternativa 4</span>
+            </div>
+            <div id="open-modal-answer" class="modal">
+                <div class="container-modal">
+                    <h3>Tem certeza da resposta ?</h3>
+                    <div class="flex-item-modal">
+                        <span class="button btn-modal" id="confirm-answer">Sim</span>
+                        <span class="button btn-modal close">Não</span>
+                    </div>
+                </div>
+            </div>
+            <div id="open-modal-stop" class="modal">
+                <div class="container-modal">
+                    <h3>Deseja parar ?</h3>
+                    <div class="flex-item-modal">
+                        <span class="button btn-modal" id="confirm-stop">Sim</span>
+                        <span class="button btn-modal close">Não</span>
+                    </div>
+                </div>
+            </div>
+            <div id="open-modal-next-question" class="modal">
+                <div class="container-modal">
+                    <h3>Parabéns, você acertou !</h3>
+                    <h3>Se prepare para a próxima pergunta.</h3>
+                    <div class="flex-item-modal">
+                    </div>
+                </div>
+            </div>
+            <div id="open-modal-incorrect-answer" class="modal">
+                <div class="container-modal">
+                    <h3>Você perdeu !</h3>
+                    <h3>Sinto muito, essa não é a resposta correta.</h3>
+                    <div class="flex-item-modal">
+                    </div>
+                </div>
+            </div>
+            <div id="open-modal-winner" class="modal">
+                <div class="container-modal">
+                    <h3>Você venceu, parabéns !</h3>
+                    <div class="flex-item-modal">
+                    </div>
+                </div>
+            </div>
+            <div id="open-modal-time" class="modal">
+                <div class="container-modal">
+                    <h3>Você perdeu, o tempo acabou !</h3>
+                    <div class="flex-item-modal">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex-item-game" id="time">Tempo Restante
+            <p class="time-left">10</p>
+        </div>
+        <div class="flex-item-game" id="options">
+            <div class="flex-container-options">
+                <span class="flex-item-options">
+                    <p class="money incorrect">0</p>
+                    <p>Errar</p>
+                </span>
+                <span class="flex-item-options">
+                    <p class="money stop">0</p>
+                    <p>Parar</p>
+                </span>
+                <span class="flex-item-options">
+                    <p class="money correct">1 mil</p>
+                    <p>Acertar</p>
+                </span>
+            </div>
+            <p class="button-stop open-modal-stop">Parar</p>
+        </div>
+    </div>
+    <script src="js/game.js"></script>
+</body>
+
+</html>
