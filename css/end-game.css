@@ -25,6 +25,7 @@ input {
 .reward {
     font-size: 2.4rem;
     margin-bottom: 50px;
+    font-weight: bold;
 }
 
 h3 {

@@ -1,15 +1,16 @@
-const playerName = document.querySelector("#player")
-const buttonSave = document.querySelector("#save")
+const playerName = document.getElementById("player")
+const buttonSave = document.getElementById("save")
 const reward = document.querySelector(".reward")
 
 //inicia array na primeira vez e depois armazena os valores
 const mostRecentPrize = localStorage.getItem("mostRecentPrize");
 const highPrizes = JSON.parse(localStorage.getItem("highPrizes")) || [];
 
-reward.innerHTML = 'R$ ' + mostRecentPrize + ' mil'
+mostRecentPrize == 1000 ? reward.innerText = "Parabéns ! Você ganhou R$ 1 milhão !"
+    : reward.innerText = 'Você faturou:R$ ' + mostRecentPrize + ' mil'
 
-playerName.addEventListener('keyup', () => {
-    buttonSave.disabled = !playerName.value
+playerName.addEventListener("keyup", () => {
+        buttonSave.disabled = !playerName.value;
 })
 
 savePrize = e => {
@@ -28,5 +29,7 @@ savePrize = e => {
 
     localStorage.setItem("highPrizes", JSON.stringify(highPrizes));
 
-    window.location.assign('index.html')
+    if(playerName.value !== null && playerName.value !== ''){
+        window.location.assign('index.html')
+    }
 }

@@ -11,14 +11,13 @@
 
 <body>
     <div class="flex-container">
-        <h2>Você faturou: </h2>
         <p class="reward"></p>
         <h3>Digite seu nome para salvar seu progresso !</h3>
             <div class="flex-item-end-game">
                 <form class="form-save-player flex-form">
                     <input type="text" name="name" id="player" placeholder="Digite seu nome"><br>
                     <button class="button btn-end-game" id="save" type="submit"
-                        onclick="savePrize(event)">Salvar</button>
+                        onclick="savePrize(event)" required="required">Salvar</button>
                 </form>
                 <a href="game.html" class="button btn-end-game">Jogar Novamente</a>
                 <a href="index.html" class="button btn-end-game">Sair</a>
