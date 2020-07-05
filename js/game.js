@@ -109,7 +109,7 @@ let databaseQuestions = [
 
 ]
 
-const maxQuestions = 12
+const maxQuestions = 2
 let drawnQuestions = 0
 let questionSelected = {}
 let questionsAvailable = []
@@ -128,14 +128,6 @@ const timeLeft = document.querySelector('.time-left')
 const valueCorrect = document.querySelector('.correct')
 const valueIncorrect = document.querySelector('.incorrect')
 const valueStop = document.querySelector('.stop')
-// const prize = document.querySelector('#prize')
-// const openModalPrize = document.querySelector('#open-modal-prize')
-
-
-// function openPrize() {
-//     prize.innerText = 1
-//     openModalPrize.style.display = "flex";
-// }
 
 //variaveis dos modais
 var closeModal = document.querySelectorAll(".close")
@@ -150,6 +142,7 @@ var confirmStop = document.querySelector("#confirm-stop")
 //modal next question ou erro question
 var openModalNextQuestion = document.querySelector("#open-modal-next-question")
 var openModalIncorrectAnswer = document.querySelector("#open-modal-incorrect-answer")
+var openModalWinner = document.querySelector("#open-modal-winner")
 
 // verifica se confirma a resposta ou não
 openModalAnswer.forEach(e => e.onclick = () => {
@@ -180,19 +173,26 @@ confirmStop.onclick = () => window.location.href = "end-game.html"
 
 //espera modal next question finalizar
 function correctAnswer() {
-    openModalNextQuestion.style.display = "flex"
-    closeConfirmAnswerModal()
-    setTimeout(() => {
-        openModalNextQuestion.style.display = "none"
-        resetAnswer()
-        getNewQuestion()
-    }, 3000)
+    if (drawnQuestions == maxQuestions) {
+        closeConfirmAnswerModal()
+        openModalWinner.style.display = "flex"
+        setTimeout(() => {
+            winGame()
+        },2000)
+    } else {
+        openModalNextQuestion.style.display = "flex"
+        closeConfirmAnswerModal()
+        setTimeout(() => {
+            openModalNextQuestion.style.display = "none"
+            resetAnswer()
+            getNewQuestion()
+        }, 3000)
+    }
 }
 
 function incorrectAnswer() {
     openModalIncorrectAnswer.style.display = "flex"
     localStorage.setItem("mostRecentPrize", (price / 4))
-    // console.log((price / 4))
     closeConfirmAnswerModal()
     markCorrectAnswer()
     setTimeout(() => {
@@ -218,32 +218,33 @@ startGame = () => {
     getNewQuestion()
 }
 
+winGame = () => {
+    localStorage.setItem("mostRecentPrize", price)
+    window.location.href = "winner.html"
+}
+
 //gera uma nova questao
 getNewQuestion = () => {
 
     //verificar se ainda existem perguntas para serem exibidas
-    if (drawnQuestions >= maxQuestions) {
-        console.log("MAXIMO DE PERGUNTAS")
-        localStorage.setItem("mostRecentPrize", price)
-        window.location.href = "end-game.html"
-    } else {
-        drawnQuestions++
-        console.log(price)
-        setPrice()
+    drawnQuestions++
+    console.log(price)
+    setPrice()
+    // timeDecrease()
 
-        //sortear uma questao pelo índice
-        const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
-        questionSelected = questionsAvailable[drawnQuestion]
-        question.innerText = questionSelected.question
+    //sortear uma questao pelo índice
+    const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
+    questionSelected = questionsAvailable[drawnQuestion]
+    question.innerText = questionSelected.question
 
-        alternatives.forEach(alternative => {
-            const alternativeNumber = alternative.dataset['id']
-            alternative.innerText = questionSelected['alternative' + alternativeNumber]
-        })
+    alternatives.forEach(alternative => {
+        const alternativeNumber = alternative.dataset['id']
+        alternative.innerText = questionSelected['alternative' + alternativeNumber]
+    })
 
-        //remove a questao sorteada do array
-        questionsAvailable.splice(drawnQuestion, 1)
-    }
+    //remove a questao sorteada do array
+    questionsAvailable.splice(drawnQuestion, 1)
+
 }
 
 //seleciona a alternativa marcada

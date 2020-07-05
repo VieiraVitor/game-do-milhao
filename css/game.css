@@ -3,6 +3,7 @@
     height: 100vh;
     display: flex;
     padding: 5px;
+    background-image: url(../img/unknown.png);
 }
 
 .wrap { 
@@ -11,7 +12,7 @@
 } 
 
 .flex-item-game {
-    background: #1d1733;
+    background: radial-gradient(circle, rgba(121,9,9,1) 35%, rgba(36,0,0,1) 100%, rgba(255,8,0,1) 100%);
     padding: 5px;
     width: 100px;
     height: 100px;
@@ -34,12 +35,14 @@
     height: 60vh;
     flex-grow: 3;
     display: grid;
+    /* background: none; */
 }
 
 #time {
     width: 25vw;
     height: 35vh;
     flex-grow: 1;
+    /* background: none; */
 }
 
 #options {
@@ -73,11 +76,17 @@
     transform: scale(1.02);
 }
 
+#question {
+    font-size: 1.4em;
+}
+
 .answer{
     width: 100%;
     border: 2px solid #000;
-    background-color: #b4fec9;
+    background-color: gold;
     color: #000;
+    font-size: 1.2em;
+    font-weight: bold;
     border-radius: 10px;
     margin:1px 10px;
 }
