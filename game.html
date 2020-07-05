@@ -12,10 +12,10 @@
 
 <body>
     <div class="flex-container-game wrap">
-        <div class="flex-item-game questions">Pergunta
+        <div class="flex-item-game questions">
             <div class="text" id="question"></div>
         </div>
-        <div class="flex-item-game answers">Respostas
+        <div class="flex-item-game answers">
             <div class="flex-container-alternative">
                 <p class="letter">A</p>
                 <span class="text answer open-modal-answer" id="answer1" data-id="1">Alternativa 1</span>
@@ -75,7 +75,7 @@
             </div>
         </div>
         <div class="flex-item-game" id="time">Tempo Restante
-            <p class="time-left"></p>
+            <p class="time-left">10</p>
         </div>
         <div class="flex-item-game" id="options">
             <div class="flex-container-options">
@@ -85,13 +85,14 @@
                 </span>
                 <span class="flex-item-options">
                     <p class="money stop">0</p>
-                    <p class="button-end open-modal-stop" >Parar</p>
+                    <p>Parar</p>
                 </span>
                 <span class="flex-item-options">
                     <p class="money correct">1 mil</p>
                     <p>Acertar</p>
                 </span>
             </div>
+            <p class="button-stop open-modal-stop">Parar</p>
         </div>
     </div>
     <script src="js/game.js"></script>

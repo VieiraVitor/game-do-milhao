@@ -107,9 +107,54 @@ let databaseQuestions = [
         answer: 2
     },
 
+    {
+        question: 'Pergunta 3 ?',
+        alternative1: 'isso',
+        alternative2: 'aquilo',
+        alternative3: 'nao sei',
+        alternative4: 'nada',
+        answer: 2
+    },
+
+    {
+        question: 'Pergunta 3 ?',
+        alternative1: 'isso',
+        alternative2: 'aquilo',
+        alternative3: 'nao sei',
+        alternative4: 'nada',
+        answer: 2
+    },
+
+    {
+        question: 'Pergunta 3 ?',
+        alternative1: 'isso',
+        alternative2: 'aquilo',
+        alternative3: 'nao sei',
+        alternative4: 'nada',
+        answer: 2
+    },
+
+    {
+        question: 'Pergunta 3 ?',
+        alternative1: 'isso',
+        alternative2: 'aquilo',
+        alternative3: 'nao sei',
+        alternative4: 'nada',
+        answer: 2
+    },
+
+    {
+        question: 'Pergunta 3 ?',
+        alternative1: 'isso',
+        alternative2: 'aquilo',
+        alternative3: 'nao sei',
+        alternative4: 'nada',
+        answer: 2
+    },
+
 ]
 
-const maxQuestions = 2
+const maxQuestions = 16
 let drawnQuestions = 0
 let questionSelected = {}
 let questionsAvailable = []
@@ -168,7 +213,10 @@ openModalStop.onclick = () => {
     modalStop.style.display = "flex";
 }
 
-confirmStop.onclick = () => window.location.href = "end-game.html"
+confirmStop.onclick = () => {
+    localStorage.setItem("mostRecentPrize", (price / 4))
+    window.location.href = "end-game.html"
+}
 
 
 //espera modal next question finalizar
@@ -184,8 +232,8 @@ function correctAnswer() {
         closeConfirmAnswerModal()
         setTimeout(() => {
             openModalNextQuestion.style.display = "none"
-            resetAnswer()
-            getNewQuestion()
+        resetAnswer()
+        getNewQuestion()
         }, 3000)
     }
 }
@@ -205,13 +253,13 @@ function markCorrectAnswer() {
     alternatives.forEach(alternative => {
         if (questionSelected.answer == alternative.dataset['id']) {
             alternative.classList.add('answer-correct')
+            alternativeSelected.classList.add('answer-incorrect')
         }
     })
 }
 
 //inicia o jogo
 startGame = () => {
-    // openPrize()
     price = 0
     drawnQuestions = 0
     questionsAvailable = databaseQuestions
@@ -275,7 +323,7 @@ verifyAnswer = () => {
 
 //altera os valores de ganhos do jogo
 alterPrizeValues = () => {
-    valueCorrect.innerText = price + ' mil'
+    price == 1000 ? valueCorrect.innerText = 1 + ' milhão' : valueCorrect.innerText = price + ' mil'
     valueIncorrect.innerText = (price / 4) + ' mil'
     valueStop.innerText = (price / 2) + ' mil'
 }
@@ -300,7 +348,7 @@ function setPrice() {
         price += 100
     } else {
         verifyPrice()
-        price = 1
+        price+= 1000
     }
 
     alterPrizeValues()
