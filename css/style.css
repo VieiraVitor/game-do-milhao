@@ -6,10 +6,12 @@
     margin: 0;
     padding: 0;
     font-family: 'Ubuntu', sans-serif;
+    /* background: linear-gradient(90deg, rgba(112,171,159,1) 38%, rgba(77,182,209,1) 100%); */
 }
 
 body {
-    background-color: #0e5958;
+    /* background: linear-gradient(90deg, rgba(112,171,159,1) 38%, rgba(77,182,209,1) 100%); */
+    background-color: #0f3356;
 }
 
 h1 {
@@ -27,6 +29,13 @@ h2 {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-item-index {
+    width: 30%;
+    display: flex;
     justify-content: center;
     align-items: center;
 }

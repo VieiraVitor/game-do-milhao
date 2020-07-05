@@ -3,7 +3,7 @@
     height: 100vh;
     display: flex;
     padding: 5px;
-    background-image: url(../img/unknown.png);
+    /* background-image: url(../img/unknown.png); */
 }
 
 .wrap { 
@@ -12,7 +12,9 @@
 } 
 
 .flex-item-game {
-    background: radial-gradient(circle, rgba(121,9,9,1) 35%, rgba(36,0,0,1) 100%, rgba(255,8,0,1) 100%);
+    /* background: radial-gradient(circle, rgba(121,9,9,1) 35%, rgba(36,0,0,1) 100%, rgba(255,8,0,1) 100%); */
+    /* background: radial-gradient(circle, rgba(112,135,171,1) 38%, rgba(77,182,209,1) 100%); */
+    background-color: #607a96;
     padding: 5px;
     width: 100px;
     height: 100px;
@@ -27,6 +29,8 @@
     width: 70vw;
     height: 35vh;
     flex-grow: 3;
+    display: flex;
+    align-items: center;
 }
 
 .answers {
@@ -35,7 +39,7 @@
     height: 60vh;
     flex-grow: 3;
     display: grid;
-    /* background: none; */
+    background: none;
 }
 
 #time {
@@ -43,7 +47,7 @@
     height: 35vh;
     flex-grow: 1;
     display: grid;
-    /* background: none; */
+    background: none;
 }
 
 #options {
@@ -55,20 +59,26 @@
     justify-content: space-evenly;
     justify-items: center;
     align-items: center;
+    /* opacity: 0.8; */
 }
 
 
 .text{ 
     text-decoration: none;
     text-align: start;
-    font-size: 1.6rem;
+    /* font-size: 1.6rem; */
     padding: 10px;
+    /* margin-top: 30px;
+    margin-left: 30px; */
 }
 
 .flex-container-alternative{
     display: flex;
     align-items: baseline;
     align-self: center;
+    border: 2px solid black;
+    border-radius: 40px;
+    background-color: rgb(226, 225, 225);
 }
 
 .flex-container-alternative:first-child{
@@ -87,8 +97,8 @@
 
 .answer{
     width: 100%;
-    border: 2px solid #000;
-    background-color: gold;
+    /* border: 2px solid #000; */
+    /* background-color: gold; */
     color: #000;
     font-size: 1.2em;
     font-weight: bold;
@@ -97,17 +107,19 @@
 }
 
 .letter {
-    width: 50px;
+    width: 55px;
     height: 50%;
     border-radius: 50%;
-    background-color: #000;
+    background-color: #727272;
+    color: #fff;
+    font-weight: bold;
     text-align: center;
     padding: 7px;
     margin-left: 10px;
 }
 
 .letter:first-child{
-    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .flex-container-options{
@@ -119,10 +131,11 @@
 .button-stop {
     font-size: 1.6rem;
     font-weight: bold;
-    background-color: #7bf89e;
+    /* background-color: #959996; */
+    background-color: #1d1733;
     border: 2px solid #000;
     border-radius: 10px;
-    color: #000000;
+    /* color: #000000; */
     text-decoration-line: none;
     text-align: center;
     padding: 20px 50px;
@@ -134,11 +147,11 @@
 }
 
 .answer-selected {
-    background-color: #7bf89e;
+    background-color: #7bf89e !important;
 }
 
 .answer-incorrect {
-    background-color: red;
+    background-color: rgb(231, 50, 50) !important;
 }
 
 .answer-correct {

@@ -1,9 +1,12 @@
 const playerName = document.querySelector("#player")
 const buttonSave = document.querySelector("#save")
+const reward = document.querySelector(".reward")
 
 //inicia array na primeira vez e depois armazena os valores
 const mostRecentPrize = localStorage.getItem("mostRecentPrize");
 const highPrizes = JSON.parse(localStorage.getItem("highPrizes")) || [];
+
+reward.innerHTML = 'R$ ' + mostRecentPrize + ' mil'
 
 playerName.addEventListener('keyup', () => {
     buttonSave.disabled = !playerName.value
