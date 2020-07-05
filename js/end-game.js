@@ -1,6 +1,5 @@
 const playerName = document.querySelector("#player")
 const buttonSave = document.querySelector("#save")
-// const recentPrizes = document.querySelector("#")
 
 //inicia array na primeira vez e depois armazena os valores
 const mostRecentPrize = localStorage.getItem("mostRecentPrize");

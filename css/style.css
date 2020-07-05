@@ -54,39 +54,3 @@ h2 {
     cursor: pointer;
     transform: scale(1.05);
 }
-
-/* Tela de Fim de Jogo */
-
-.flex-item-end-game{
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-    align-items: stretch;
-}
-
-.flex-form{
-    display: flex;
-    flex-direction: column;
-}
-
-input {
-    margin: 0px 5px;
-    padding: 5px;
-    font-size: 1.6rem;
-    color: #000
-}
-
-.btn-end-game{
-    font-size: 1.6rem;
-}
-
-/* Tela de Placar */
-
-.flex-item-ranking{
-    width: 30%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
