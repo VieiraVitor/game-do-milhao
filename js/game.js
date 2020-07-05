@@ -53,14 +53,15 @@ let databaseQuestions = [
         alternative2: 'Dom Quixote',
         alternative3: 'O Pequeno Príncipe',
         alternative4: 'Ela, a Feiticeira',
-        answer: 2
+        anser: 2
     },
     {
         question: 'Quantas casas decimais tem o número pi?',
         alternative1: 'Duas',
-        alternative2: 'Centenas',
-        alternative3: 'Infinitas',
-        alternative4: 'Vinte',
+        alternative1: 'Centenas',
+        alternative1: 'Infinitas',
+        alternative1: 'Vinte',
+        alternative1: 'Milhares',
         answer: 3
     },
     {
@@ -93,7 +94,7 @@ let databaseQuestions = [
         alternative2: '10',
         alternative3: '9',
         alternative4: '7',
-        answer: 4
+        anser: 4
     },
     {
         question: 'Quais os principais autores do Barroco no Brasil?',
@@ -183,9 +184,65 @@ let databaseQuestions = [
         alternative4: 'Idade Média',
         answer: 2
     },
+    {
+        question: 'Qual das alternativas abaixo apenas contêm classes de palavras?',
+        alternative1: 'Vogais, semivogais e consoantes',
+        alternative2: 'Artigo, verbo transitivo e verbo intransitivo',
+        alternative3: 'Fonologia, Morfologia e Sintaxe',
+        alternative4: 'Substantivo, verbo e preposição',
+        answer: 4
+    },
+    {
+        question: 'Qual a montanha mais alta do Brasil?',
+        alternative1: 'Pico da Neblina',
+        alternative2: 'Pico Paraná',
+        alternative3: 'Monte Roraima',
+        alternative4: 'Pico Maior de Friburgo',
+        answer: 1
+    },
+    {
+        question: 'Qual a velocidade da luz?',
+        alternative1: '300 000 000 metros por segundo (m/s)',
+        alternative2: '150 000 000 metros por segundo (m/s)',
+        alternative3: '199 792 458 metros por segundo (m/s)',
+        alternative4: '299 792 458 metros por segundo (m/s)',
+        answer: 4
+    },
+    {
+        question: 'Em qual local da Ásia o português é língua oficial?',
+        alternative1: 'Índia',
+        alternative2: 'Filipinas',
+        alternative3: 'Moçambique',
+        alternative4: 'Macau',
+        answer: 4
+    },
+    {
+        question: '“It is six twenty ou twenty past six”. Que horas são em inglês?',
+        alternative1: '12:06',
+        alternative2: '6:20',
+        alternative3: '2:20',
+        alternative4: '6:02',
+        answer: 2
+    },
+    {
+        question: 'Quem é o autor de “O Príncipe”?',
+        alternative1: 'Maquiavel',
+        alternative2: 'Antoine de Saint-Exupéry',
+        alternative3: 'Montesquieu',
+        alternative4: 'Thomas Hobbes',
+        answer: 1
+    },
+    {
+        question: 'Como é a conjugação do verbo caber na 1.ª pessoa do singular do presente do indicativo?',
+        alternative1: 'Eu caibo',
+        alternative2: 'Ele cabe',
+        alternative3: 'Que eu caiba',
+        alternative4: 'Eu cabo',
+        answer: 1
+    },    
 ]
 
-const maxQuestions = 2
+const maxQuestions = 16
 let drawnQuestions = 0
 let questionSelected = {}
 let questionsAvailable = []
@@ -267,7 +324,7 @@ choices.forEach(choice => {
 
 // Abrir modal de confirmação ao clicar em uma resposta
 openModalAnswer.forEach(e => e.onclick = () => {
-    modalAnswers.style.display = "flex";
+    modalAnswers.style.display = "flex"
 })
 
 // Reseta a marcação e fecha o modal caso o jogador não confirme sua escolha
@@ -283,8 +340,8 @@ resetAnswer = () => {
 }
 
 closeConfirmAnswerModal = () => {
-    modalAnswers.style.display = "none";
-    modalStop.style.display = "none";
+    modalAnswers.style.display = "none"
+    modalStop.style.display = "none"
 }
 
 // Confirma a resposta selecionada
@@ -384,7 +441,7 @@ verifyPrize = () => {
 
 // Abrir modal para desistir do jogo
 openModalStop.onclick = () => {
-    modalStop.style.display = "flex";
+    modalStop.style.display = "flex"
 }
 
 confirmStop.onclick = () => {
@@ -409,7 +466,7 @@ function timeDecrease() {
 // Reseta o tempo
 function stopTime() {
     clearTimeout(timer)
-    count = 61;
+    count = 61
 }
 
 function timeExpired() {
