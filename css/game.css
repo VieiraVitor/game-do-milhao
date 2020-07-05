@@ -165,3 +165,11 @@
 .flex-item-options {
     padding: 1rem;
 }
+
+.money {
+    color: gold;
+}
+
+.time-end {
+    color:  rgb(231, 50, 50);
+}

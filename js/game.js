@@ -191,8 +191,7 @@ let questionSelected = {}
 let questionsAvailable = []
 let alternativeSelected
 let price = 0
-let count = 5
-var timer = null
+let count = 61
 const question = document.querySelector('#question')
 const alternatives = document.querySelectorAll('.answer')
 const choices = Array.from(document.getElementsByClassName("flex-container-alternative"))
@@ -207,19 +206,20 @@ const valueIncorrect = document.querySelector('.incorrect')
 const valueStop = document.querySelector('.stop')
 
 //variaveis dos modais
-var closeModal = document.querySelectorAll(".close")
-var modalAnswers = document.querySelector("#open-modal-answer")
-var openModalAnswer = document.querySelectorAll(".open-modal-answer")
-var confirmAnswer = document.querySelector('#confirm-answer')
+const closeModal = document.querySelectorAll(".close")
+const modalAnswers = document.querySelector("#open-modal-answer")
+const openModalAnswer = document.querySelectorAll(".open-modal-answer")
+const confirmAnswer = document.querySelector('#confirm-answer')
 
-var modalStop = document.querySelector("#open-modal-stop")
-var openModalStop = document.querySelector(".open-modal-stop")
-var confirmStop = document.querySelector("#confirm-stop")
+const modalStop = document.querySelector("#open-modal-stop")
+const openModalStop = document.querySelector(".open-modal-stop")
+const confirmStop = document.querySelector("#confirm-stop")
 
 //modal next question ou erro question
-var openModalNextQuestion = document.querySelector("#open-modal-next-question")
-var openModalIncorrectAnswer = document.querySelector("#open-modal-incorrect-answer")
-var openModalWinner = document.querySelector("#open-modal-winner")
+const openModalNextQuestion = document.querySelector("#open-modal-next-question")
+const openModalIncorrectAnswer = document.querySelector("#open-modal-incorrect-answer")
+const openModalWinner = document.querySelector("#open-modal-winner")
+const openModalTime = document.querySelector("#open-modal-time")
 
 // verifica se confirma a resposta ou não
 openModalAnswer.forEach(e => e.onclick = () => {
@@ -233,9 +233,10 @@ closeModal.forEach(e => e.onclick = () => {
 confirmAnswer.onclick = () => {
 
     if (verifyAnswer()) {
+        stopTime()
         correctAnswer()
-
     } else {
+        stopTime()
         incorrectAnswer()
     }
 }
@@ -310,7 +311,7 @@ getNewQuestion = () => {
     drawnQuestions++
     console.log(price)
     setPrice()
-    // timeDecrease()
+    timeDecrease()
 
     //sortear uma questao pelo índice
     const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
@@ -399,6 +400,9 @@ verifyPrice = () => {
 
 function timeDecrease() {
     if ((count - 1) >= 0) {
+        if(count <= 10){
+            timeLeft.classList.add('time-end')
+        }
         count--
         timeLeft.innerText = count
     } else {
@@ -409,12 +413,15 @@ function timeDecrease() {
 
 function stopTime() {
     clearTimeout(timer)
-    count = 5;
+    count = 4;
 }
 
 function timeExpired() {
-    //tempo expirou e você perdeu
-    window.location.href = "end-game.html"
+    openModalTime.style.display = "flex"
+    setTimeout(() => {
+        openModalTime.style.display = "none"
+        window.location.href = "end-game.html"
+    }, 3000)
 }
 
 startGame()
