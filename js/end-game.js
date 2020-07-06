@@ -7,7 +7,7 @@ const mostRecentPrize = localStorage.getItem("mostRecentPrize")
 const highPrizes = JSON.parse(localStorage.getItem("highPrizes")) || []
 
 mostRecentPrize == 1000 ? reward.innerText = "Parabéns ! Você ganhou R$ 1 milhão !"
-    : reward.innerText = 'Você ganhou: R$ ' + mostRecentPrize + ' mil'
+    : reward.innerText = 'Você perdeu, não fique triste. Você faturou: R$ ' + mostRecentPrize + ' mil'
 
 playerName.addEventListener("keyup", () => {
     buttonSave.disabled = !playerName.value

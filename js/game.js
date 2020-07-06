@@ -53,7 +53,7 @@ let databaseQuestions = [
         alternative2: 'Dom Quixote',
         alternative3: 'O Pequeno Príncipe',
         alternative4: 'Ela, a Feiticeira',
-        anser: 2
+        answer: 2
     },
     {
         question: 'Quantas casas decimais tem o número pi?',
@@ -93,7 +93,7 @@ let databaseQuestions = [
         alternative2: '10',
         alternative3: '9',
         alternative4: '7',
-        anser: 4
+        answer: 4
     },
     {
         question: 'Quais os principais autores do Barroco no Brasil?',
@@ -453,6 +453,8 @@ function timeDecrease() {
     if ((count - 1) >= 0) {
         if(count <= 10){
             timeLeft.classList.add('time-end')
+        }else {
+            timeLeft.classList.remove('time-end')
         }
         count--
         timeLeft.innerText = count
@@ -470,6 +472,7 @@ function stopTime() {
 
 function timeExpired() {
     openModalTime.style.display = "flex"
+    localStorage.setItem("mostRecentPrize", (old_prize / 2))
     setTimeout(() => {
         openModalTime.style.display = "none"
         window.location.href = "end-game.html"

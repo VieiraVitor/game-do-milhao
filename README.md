@@ -1,4 +1,4 @@
-# Jogo Show Do Milhão
+# Game Do Milhão
 ![](/imgs/homepage.png)
 # Sobre o Projeto
 A ideia do projeto é:
