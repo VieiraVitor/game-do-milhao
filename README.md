@@ -62,7 +62,7 @@ Para visualizar o funcionamento do jogo abra o homepage.html no diretório baixa
 
 Abaixo algumas imagens de telas do jogo
 
-![](/imgs/gamepage1.png)
+![](/imgs/gamepage.png)
 ![](/imgs/gamepage-confirm-answer.png)
 ![](/imgs/gamepage-lose.png)
-![](/imgs/end-game-page.png)
+![](/imgs/endgamepage.png)

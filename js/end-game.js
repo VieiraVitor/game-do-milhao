@@ -2,7 +2,6 @@ const playerName = document.getElementById("player")
 const buttonSave = document.getElementById("save")
 const reward = document.querySelector(".reward")
 
-//inicia array na primeira vez e depois armazena os valores
 const mostRecentPrize = localStorage.getItem("mostRecentPrize")
 const highPrizes = JSON.parse(localStorage.getItem("highPrizes")) || []
 

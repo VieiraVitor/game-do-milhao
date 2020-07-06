@@ -1,3 +1,242 @@
+const maxQuestions = 16
+let drawnQuestions = 0
+let questionSelected = {}
+let questionsAvailable = []
+let alternativeSelected
+let prize = 0
+let count = 61
+
+// Perguntas e Respostas
+const question = document.querySelector('#question')
+const alternatives = document.querySelectorAll('.answer')
+const choices = Array.from(document.getElementsByClassName("flex-container-alternative"))
+
+// Tempo Restante
+const timeLeft = document.querySelector('.time-left')
+
+// Valores possíveis de ganho
+const valueCorrect = document.querySelector('.correct')
+const valueIncorrect = document.querySelector('.incorrect')
+const valueStop = document.querySelector('.stop')
+
+// Janelas Modal
+const closeModal = document.querySelectorAll(".close")
+
+const modalAnswers = document.querySelector("#open-modal-answer")
+const openModalAnswer = document.querySelectorAll(".open-modal-answer")
+const confirmAnswer = document.querySelector('#confirm-answer')
+
+const modalStop = document.querySelector("#open-modal-stop")
+const openModalStop = document.querySelector(".open-modal-stop")
+const confirmStop = document.querySelector("#confirm-stop")
+
+const openModalNextQuestion = document.querySelector("#open-modal-next-question")
+const openModalIncorrectAnswer = document.querySelector("#open-modal-incorrect-answer")
+const openModalWinner = document.querySelector("#open-modal-winner")
+
+const openModalTime = document.querySelector("#open-modal-time")
+
+// Iniciar o jogo
+startGame = () => {
+    prize = 0
+    drawnQuestions = 0
+    questionsAvailable = databaseQuestions
+    getNewQuestion()
+}
+
+// Vencer o jogo
+winGame = () => {
+    localStorage.setItem("mostRecentPrize", prize)
+    window.location.href = "end-game.html"
+}
+
+// Gerar nova pergunta
+getNewQuestion = () => {
+    drawnQuestions++
+    setPrize()
+    timeDecrease()
+
+    // Sortear uma questao pelo índice
+    const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
+    questionSelected = questionsAvailable[drawnQuestion]
+    question.innerText = questionSelected.question
+
+    alternatives.forEach(alternative => {
+        const alternativeNumber = alternative.dataset['id']
+        alternative.innerText = questionSelected['alternative' + alternativeNumber]
+    })
+
+    questionsAvailable.splice(drawnQuestion, 1)
+}
+
+// Marcar a resposta selecionada
+choices.forEach(choice => {
+    choice.addEventListener('click', e => {
+        alternativeSelected = e.target
+        if (alternativeSelected.className != 'flex-container-alternative')
+            alternativeSelected.parentElement.classList.add('answer-selected')
+    })
+})
+
+// Abrir modal de confirmação ao clicar em uma resposta
+openModalAnswer.forEach(e => e.onclick = () => {
+    modalAnswers.style.display = "flex"
+})
+
+// Reseta a marcação e fecha o modal caso o jogador não confirme sua escolha
+closeModal.forEach(e => e.onclick = () => {
+    resetAnswer()
+})
+
+resetAnswer = () => {
+    closeConfirmAnswerModal()
+    choices.forEach(choice => {
+        choice.classList.remove('answer-selected')
+    })
+}
+
+closeConfirmAnswerModal = () => {
+    modalAnswers.style.display = "none"
+    modalStop.style.display = "none"
+}
+
+// Confirma a resposta selecionada
+confirmAnswer.onclick = () => {
+    if (verifyAnswer()) {
+        stopTime()
+        correctAnswer()
+    } else {
+        stopTime()
+        incorrectAnswer()
+    }
+}
+
+// Verifica a resposta
+verifyAnswer = () => {
+    return questionSelected.answer == alternativeSelected.dataset['id'] ? true : false
+}
+
+// Resposta correta
+function correctAnswer() {
+    if (drawnQuestions == maxQuestions) {
+        closeConfirmAnswerModal()
+        openModalWinner.style.display = "flex"
+        setTimeout(() => {
+            winGame()
+        }, 2000)
+    } else {
+        openModalNextQuestion.style.display = "flex"
+        closeConfirmAnswerModal()
+        setTimeout(() => {
+            openModalNextQuestion.style.display = "none"
+            resetAnswer()
+            getNewQuestion()
+        }, 3000)
+    }
+}
+
+// Resposta incorreta
+function incorrectAnswer() {
+    openModalIncorrectAnswer.style.display = "flex"
+    localStorage.setItem("mostRecentPrize", (old_prize / 2))
+    closeConfirmAnswerModal()
+    markCorrectAnswer()
+    setTimeout(() => {
+        openModalNextQuestion.style.display = "none"
+        window.location.href = "end-game.html"
+    }, 3000)
+}
+
+// Marca resposta correta
+function markCorrectAnswer() {
+    alternatives.forEach(alternative => {
+        if (questionSelected.answer == alternative.dataset['id']) {
+            alternative.parentElement.classList.add('answer-correct')
+            alternativeSelected.parentElement.classList.add('answer-incorrect')
+        }
+    })
+}
+
+// Altera os valores dos prêmios
+function setPrize() {
+    if (drawnQuestions <= 5) {
+        if (drawnQuestions == 1) {
+            old_prize = prize
+            prize = 1
+        } else {
+            old_prize = prize
+            verifyPrize()
+            prize++
+        }
+    } else if (drawnQuestions > 5 && drawnQuestions <= 10) {
+        old_prize = prize
+        verifyPrize()
+        prize += 10
+    } else if (drawnQuestions > 10 && drawnQuestions <= 15) {
+        old_prize = prize
+        verifyPrize()
+        prize += 100
+    } else {
+        old_prize = prize
+        verifyPrize()
+        prize += 1000
+    }
+
+    alterPrizeValues()
+}
+
+alterPrizeValues = () => {
+    prize == 1000 ? valueCorrect.innerText = 1 + ' milhão' : valueCorrect.innerText = prize + ' mil'
+    valueStop.innerText = old_prize + ' mil'
+    valueIncorrect.innerText = (old_prize / 2) + ' mil'
+}
+
+verifyPrize = () => {
+    return prize == 5 || prize == 50 || prize == 500 ? prize = 0 : prize
+}
+
+// Abrir modal para desistir do jogo
+openModalStop.onclick = () => {
+    modalStop.style.display = "flex"
+}
+
+confirmStop.onclick = () => {
+    localStorage.setItem("mostRecentPrize", old_prize)
+    window.location.href = "end-game.html"
+}
+
+// Contador regressivo do tempo restante
+function timeDecrease() {
+    if ((count - 1) >= 0) {
+        if(count <= 10){
+            timeLeft.classList.add('time-end')
+        }else {
+            timeLeft.classList.remove('time-end')
+        }
+        count--
+        timeLeft.innerText = count
+    } else {
+        timeExpired()
+    }
+    timer = setTimeout(timeDecrease, 1000)
+}
+
+// Reseta o tempo
+function stopTime() {
+    clearTimeout(timer)
+    count = 61
+}
+
+function timeExpired() {
+    openModalTime.style.display = "flex"
+    localStorage.setItem("mostRecentPrize", (old_prize / 2))
+    setTimeout(() => {
+        openModalTime.style.display = "none"
+        window.location.href = "end-game.html"
+    }, 3000)
+}
+
+// Base com as perguntas e as respostas
 let databaseQuestions = [
     {
         question: 'Normalmente, quantos litros de sangue uma pessoa tem? Em média, quantos são retirados numa doação de sangue?',
@@ -241,242 +480,5 @@ let databaseQuestions = [
     },    
 ]
 
-const maxQuestions = 16
-let drawnQuestions = 0
-let questionSelected = {}
-let questionsAvailable = []
-let alternativeSelected
-let prize = 0
-let count = 61
-
-// Perguntas e Respostas
-const question = document.querySelector('#question')
-const alternatives = document.querySelectorAll('.answer')
-const choices = Array.from(document.getElementsByClassName("flex-container-alternative"))
-
-// Tempo Restante
-const timeLeft = document.querySelector('.time-left')
-
-// Valores possíveis de ganho
-const valueCorrect = document.querySelector('.correct')
-const valueIncorrect = document.querySelector('.incorrect')
-const valueStop = document.querySelector('.stop')
-
-// Janelas Modal
-const closeModal = document.querySelectorAll(".close")
-
-const modalAnswers = document.querySelector("#open-modal-answer")
-const openModalAnswer = document.querySelectorAll(".open-modal-answer")
-const confirmAnswer = document.querySelector('#confirm-answer')
-
-const modalStop = document.querySelector("#open-modal-stop")
-const openModalStop = document.querySelector(".open-modal-stop")
-const confirmStop = document.querySelector("#confirm-stop")
-
-const openModalNextQuestion = document.querySelector("#open-modal-next-question")
-const openModalIncorrectAnswer = document.querySelector("#open-modal-incorrect-answer")
-const openModalWinner = document.querySelector("#open-modal-winner")
-
-const openModalTime = document.querySelector("#open-modal-time")
-
-// Inicio do jogo
-startGame = () => {
-    prize = 0
-    drawnQuestions = 0
-    questionsAvailable = databaseQuestions
-    getNewQuestion()
-}
-
-// Venceu o jogo
-winGame = () => {
-    localStorage.setItem("mostRecentPrize", prize)
-    window.location.href = "end-game.html"
-}
-
-// Sorteia uma nova pergunta
-getNewQuestion = () => {
-    drawnQuestions++
-    setPrize()
-    timeDecrease()
-
-    // Sortear uma questao pelo índice
-    const drawnQuestion = Math.floor(Math.random() * questionsAvailable.length)
-    questionSelected = questionsAvailable[drawnQuestion]
-    question.innerText = questionSelected.question
-
-    alternatives.forEach(alternative => {
-        const alternativeNumber = alternative.dataset['id']
-        alternative.innerText = questionSelected['alternative' + alternativeNumber]
-    })
-
-    questionsAvailable.splice(drawnQuestion, 1)
-}
-
-// Marca a resposta selecionada
-choices.forEach(choice => {
-    choice.addEventListener('click', e => {
-        alternativeSelected = e.target
-        if (alternativeSelected.className != 'flex-container-alternative')
-            alternativeSelected.parentElement.classList.add('answer-selected')
-    })
-})
-
-// Abrir modal de confirmação ao clicar em uma resposta
-openModalAnswer.forEach(e => e.onclick = () => {
-    modalAnswers.style.display = "flex"
-})
-
-// Reseta a marcação e fecha o modal caso o jogador não confirme sua escolha
-closeModal.forEach(e => e.onclick = () => {
-    resetAnswer()
-})
-
-resetAnswer = () => {
-    closeConfirmAnswerModal()
-    choices.forEach(choice => {
-        choice.classList.remove('answer-selected')
-    })
-}
-
-closeConfirmAnswerModal = () => {
-    modalAnswers.style.display = "none"
-    modalStop.style.display = "none"
-}
-
-// Confirma a resposta selecionada
-confirmAnswer.onclick = () => {
-    if (verifyAnswer()) {
-        stopTime()
-        correctAnswer()
-    } else {
-        stopTime()
-        incorrectAnswer()
-    }
-}
-
-// Verifica a resposta
-verifyAnswer = () => {
-    return questionSelected.answer == alternativeSelected.dataset['id'] ? true : false
-}
-
-// Resposta correta
-function correctAnswer() {
-    if (drawnQuestions == maxQuestions) {
-        closeConfirmAnswerModal()
-        openModalWinner.style.display = "flex"
-        setTimeout(() => {
-            winGame()
-        }, 2000)
-    } else {
-        openModalNextQuestion.style.display = "flex"
-        closeConfirmAnswerModal()
-        setTimeout(() => {
-            openModalNextQuestion.style.display = "none"
-            resetAnswer()
-            getNewQuestion()
-        }, 3000)
-    }
-}
-
-// Resposta incorreta
-function incorrectAnswer() {
-    openModalIncorrectAnswer.style.display = "flex"
-    localStorage.setItem("mostRecentPrize", (old_prize / 2))
-    closeConfirmAnswerModal()
-    markCorrectAnswer()
-    setTimeout(() => {
-        openModalNextQuestion.style.display = "none"
-        window.location.href = "end-game.html"
-    }, 3000)
-}
-
-// Marca resposta correta
-function markCorrectAnswer() {
-    alternatives.forEach(alternative => {
-        if (questionSelected.answer == alternative.dataset['id']) {
-            alternative.parentElement.classList.add('answer-correct')
-            alternativeSelected.parentElement.classList.add('answer-incorrect')
-        }
-    })
-}
-
-// Altera os valores dos prêmios
-function setPrize() {
-    if (drawnQuestions <= 5) {
-        if (drawnQuestions == 1) {
-            old_prize = prize
-            prize = 1
-        } else {
-            old_prize = prize
-            verifyPrize()
-            prize++
-        }
-    } else if (drawnQuestions > 5 && drawnQuestions <= 10) {
-        old_prize = prize
-        verifyPrize()
-        prize += 10
-    } else if (drawnQuestions > 10 && drawnQuestions <= 15) {
-        old_prize = prize
-        verifyPrize()
-        prize += 100
-    } else {
-        old_prize = prize
-        verifyPrize()
-        prize += 1000
-    }
-
-    alterPrizeValues()
-}
-
-alterPrizeValues = () => {
-    prize == 1000 ? valueCorrect.innerText = 1 + ' milhão' : valueCorrect.innerText = prize + ' mil'
-    valueStop.innerText = old_prize + ' mil'
-    valueIncorrect.innerText = (old_prize / 2) + ' mil'
-}
-
-verifyPrize = () => {
-    return prize == 5 || prize == 50 || prize == 500 ? prize = 0 : prize
-}
-
-// Abrir modal para desistir do jogo
-openModalStop.onclick = () => {
-    modalStop.style.display = "flex"
-}
-
-confirmStop.onclick = () => {
-    localStorage.setItem("mostRecentPrize", old_prize)
-    window.location.href = "end-game.html"
-}
-
-// Contador regressivo do tempo restante
-function timeDecrease() {
-    if ((count - 1) >= 0) {
-        if(count <= 10){
-            timeLeft.classList.add('time-end')
-        }else {
-            timeLeft.classList.remove('time-end')
-        }
-        count--
-        timeLeft.innerText = count
-    } else {
-        timeExpired()
-    }
-    timer = setTimeout(timeDecrease, 1000)
-}
-
-// Reseta o tempo
-function stopTime() {
-    clearTimeout(timer)
-    count = 61
-}
-
-function timeExpired() {
-    openModalTime.style.display = "flex"
-    localStorage.setItem("mostRecentPrize", (old_prize / 2))
-    setTimeout(() => {
-        openModalTime.style.display = "none"
-        window.location.href = "end-game.html"
-    }, 3000)
-}
-
+// Iniciar o jogo
 startGame()
